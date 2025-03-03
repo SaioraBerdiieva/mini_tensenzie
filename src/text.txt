@@ -1,0 +1,75 @@
+import Die from "./Die";
+import React from "react";
+function App() {
+  const [diceArray, setDiceArray] = React.useState([]);
+  // React.useEffect(() => {
+  //   for (let i = 0; i < 6; i++)
+  //     dieArray.push(Math.floor(Math.random() * 5 + 1));
+  //   return;
+  // }, [dieArray]);
+  function getdiceArray() {
+    let newDiceArray = [];
+    for (let i = 0; i < 6; i++) {
+      newDiceArray.push(Math.floor(Math.random() * 5 + 1));
+      console.log();
+    }
+    return newDiceArray
+    // React.useEffect(() => {
+    //   setDiceArray(newDiceArray);
+    //   console.log("newArray!");
+    // }, []);
+    // console.log("newArray!");
+  }
+  const diceField = (
+    <main>
+      <div className="dice-field">
+        {diceArray.map((die) => (
+          <Die value={die} id={index} />
+        ))}
+        {/* <Die value={1} />
+        <Die value={7} /> */}
+      </div>
+      {/* <button onClick={getdiceArray}>Get</button> */}
+    </main>
+  );
+  return diceField;
+}
+
+export default App;
+//===============================================================================================================================================================
+import Die from "./Die";
+import React from "react";
+function App() {
+  const [diceArray, setDiceArray] = React.useState(getDiceArray());
+  //=========More Imperative way of creating new Array of Dice============
+  // function getDiceArray() {
+  //   let newDiceArray = [];
+  //   for (let i = 0; i < 10; i++) {
+  //     newDiceArray.push(Math.floor(Math.random() * 6));
+  //   }
+  //   console.log(newDiceArray);
+  //   return newDiceArray;
+  // }
+  //=========More Declarative way using Array construction============
+  function getDiceArray() {
+    return new Array(10).fill(0).map(() => Math.ceil(Math.random() * 6));
+  }
+  //==================================================================
+  //========================Mapping our Array=========================
+  const diceField = diceArray.map((die) => <Die value={die} />);
+  //==================================================================
+  function getUpdateDiceArray() {
+    setDiceArray(getDiceArray);
+  }
+  //================ ================
+  return (
+    <main>
+      <div className="dice-field">{diceField}</div>
+      <button className="roll-dice" onClick={getUpdateDiceArray}>
+        Roll
+      </button>
+    </main>
+  );
+}
+
+export default App;
